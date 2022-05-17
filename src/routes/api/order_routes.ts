@@ -5,7 +5,8 @@ const routes=Router();
 
 routes.post('/',validateTokenMiddleware,handlers.create);
 routes.get('/',validateTokenMiddleware,handlers.index);
-routes.get('/:user_id',validateTokenMiddleware,handlers.show);
+routes.get('/users/:user_id',validateTokenMiddleware,handlers.getOrderByUserId);
+routes.get('/:id',validateTokenMiddleware,handlers.show);
 routes.delete('/:id',validateTokenMiddleware,handlers.destroy);
-
+routes.put('/:id',validateTokenMiddleware,handlers.update);
 export default routes;

@@ -57,5 +57,18 @@ class productsStore {
             throw new Error(`can not delete product ${err}`);
         }
     }
+    async update(p) {
+        try {
+            const conn = await database_1.default.connect();
+            const sql = 'UPDATE products SET name=($2) ,price=($3) WHERE id=($1) RETURNING *';
+            const result = await conn.query(sql, [p.id, p.name, p.price]);
+            const user = result.rows[0];
+            conn.release();
+            return user;
+        }
+        catch (err) {
+            throw new Error(`can not update product ${err}`);
+        }
+    }
 }
 exports.productsStore = productsStore;

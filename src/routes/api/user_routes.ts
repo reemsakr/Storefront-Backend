@@ -7,7 +7,7 @@ routes.post('/',validateTokenMiddleware,handlers.create);
 routes.get('/',validateTokenMiddleware,handlers.index);
 routes.get('/:id',validateTokenMiddleware,handlers.show);
 routes.delete('/:id',validateTokenMiddleware,handlers.destroy);
-routes.post('/:id',handlers.update);
+routes.put('/:id',validateTokenMiddleware,handlers.update);
 routes.route('/authentication').post(handlers.authentication);
 
 export default routes;

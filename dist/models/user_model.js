@@ -10,7 +10,6 @@ const console_1 = require("console");
 const pepper = process.env.BCRYPT_PASSWORD;
 const salt_rounds = process.env.SALT_ROUNDS;
 class usersStore {
-    // static authentication: any;
     async index() {
         try {
             const conn = await database_1.default.connect();
@@ -79,6 +78,19 @@ class usersStore {
         }
         catch (err) {
             throw new Error(`can not delete user ${err}`);
+        }
+    }
+    async update(u) {
+        try {
+            const conn = await database_1.default.connect();
+            const sql = 'UPDATE users SET firstName=($2) ,lastName=($3),password_digest=($4),username=($5) WHERE id=($1) RETURNING *';
+            const result = await conn.query(sql, [u.id, u.firstName, u.lastName, u.password_digest, u.username]);
+            const user = result.rows[0];
+            conn.release();
+            return user;
+        }
+        catch (err) {
+            throw new Error(`can not update user ${err}`);
         }
     }
 }

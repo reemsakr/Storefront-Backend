@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.destroy = exports.create = exports.show = exports.index = void 0;
+exports.update = exports.destroy = exports.create = exports.show = exports.index = void 0;
 const product_model_1 = require("../models/product_model");
 //import jwt from 'jsonwebtoken';
 // import db from '../database';
@@ -37,3 +37,13 @@ const destroy = async (_req, res) => {
     res.json(newuproduct);
 };
 exports.destroy = destroy;
+const update = async (req, res) => {
+    const product = {
+        id: parseInt(req.params.id),
+        name: req.body.name,
+        price: req.body.price
+    };
+    const newproduct = await store.update(product);
+    res.json(newproduct);
+};
+exports.update = update;

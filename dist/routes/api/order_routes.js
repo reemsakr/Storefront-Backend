@@ -32,6 +32,8 @@ const authenticationmiddleware_1 = __importDefault(require("../../middlewares/au
 const routes = (0, express_1.Router)();
 routes.post('/', authenticationmiddleware_1.default, handlers.create);
 routes.get('/', authenticationmiddleware_1.default, handlers.index);
-routes.get('/:user_id', authenticationmiddleware_1.default, handlers.show);
+routes.get('/users/:user_id', authenticationmiddleware_1.default, handlers.getOrderByUserId);
+routes.get('/:id', authenticationmiddleware_1.default, handlers.show);
 routes.delete('/:id', authenticationmiddleware_1.default, handlers.destroy);
+routes.put('/:id', authenticationmiddleware_1.default, handlers.update);
 exports.default = routes;

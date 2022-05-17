@@ -32,7 +32,7 @@ class ordersStore {
             throw new Error(`can not  get product ${err}`);
         }
     }
-    async show(user_id) {
+    async getOrderByUserId(user_id) {
         try {
             const conn = await database_1.default.connect();
             const sql = 'SELECT * FROM orders WHERE user_id=($1)';
@@ -42,6 +42,18 @@ class ordersStore {
         }
         catch (err) {
             throw new Error(`can not get order ${err}`);
+        }
+    }
+    async show(id) {
+        try {
+            const conn = await database_1.default.connect();
+            const sql = 'SELECT * FROM orders WHERE id=($1)';
+            const result = await conn.query(sql, [id]);
+            conn.release();
+            return result.rows[0];
+        }
+        catch (err) {
+            throw new Error(`connet get order ${err}`);
         }
     }
     async delete(id) {
@@ -55,6 +67,19 @@ class ordersStore {
         }
         catch (err) {
             throw new Error(`can not order user ${err}`);
+        }
+    }
+    async update(o) {
+        try {
+            const conn = await database_1.default.connect();
+            const sql = 'UPDATE orders SET product_id=($2),quantity=($3),user_id=($4),status=($5) WHERE id=($1) RETURNING *';
+            const result = (await conn.query(sql, [o.id, o.product_id, o.quantity, o.user_id, o.status]));
+            const order = result.rows[0];
+            conn.release();
+            return order;
+        }
+        catch (err) {
+            throw new Error(`can not update order ${err}`);
         }
     }
 }

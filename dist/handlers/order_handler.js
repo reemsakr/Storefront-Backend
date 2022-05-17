@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.create = exports.destroy = exports.show = exports.index = void 0;
+exports.update = exports.create = exports.destroy = exports.getOrderByUserId = exports.show = exports.index = void 0;
 const order_model_1 = require("../models/order_model");
 //import jwt from 'jsonwebtoken';
 // import db from '../database';
@@ -12,10 +12,15 @@ const index = async (_req, res) => {
 };
 exports.index = index;
 const show = async (req, res) => {
-    const order = await store.show(req.params.user_id);
+    const order = await store.show(req.params.id);
     res.json(order);
 };
 exports.show = show;
+const getOrderByUserId = async (req, res) => {
+    const order = await store.getOrderByUserId(req.params.user_id);
+    res.json(order);
+};
+exports.getOrderByUserId = getOrderByUserId;
 const destroy = async (_req, res) => {
     const neworder = await store.delete(_req.params.id);
     res.json(neworder);
@@ -39,3 +44,15 @@ const create = async (req, res) => {
     }
 };
 exports.create = create;
+const update = async (req, res) => {
+    const order = {
+        id: parseInt(req.params.id),
+        product_id: req.body.product_id,
+        quantity: req.body.quantity,
+        user_id: req.body.user_id,
+        status: req.body.status
+    };
+    const neworder = await store.update(order);
+    res.json(neworder);
+};
+exports.update = update;

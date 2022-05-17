@@ -2,7 +2,6 @@ import { type } from "os";
 import Client from "../database";
 import bcrypt from 'bcrypt';
 import { error } from "console";
-
 export type user ={
     id : number;
     firstName:string;
@@ -13,7 +12,7 @@ export type user ={
 const pepper=process.env.BCRYPT_PASSWORD as string;
 const salt_rounds=process.env.SALT_ROUNDS as string;
 export class usersStore{
-    // static authentication: any;
+
 
     async index():Promise<user[]> {
         try{
@@ -100,14 +99,17 @@ export class usersStore{
         }
 
     }
-    async update(id: string,firstName:string): Promise<user> {
+    async update(u:user): Promise<user> {
 
         try {
             const conn = await Client.connect();
-            const sql = 'UPDATE users SET firstName=($1) WHERE id=($2) RETURNING *';
-            const result = await conn.query(sql, [firstName,id]);
-            const user = result.rows[0];
-            console.log("here");
+        
+            const sql = 'UPDATE users SET firstName=($2) ,lastName=($3),password_digest=($4),username=($5) WHERE id=($1) RETURNING *';
+        
+            const result = await conn.query(sql, [u.id,u.firstName,u.lastName,u.password_digest,u.username]);
+        
+        const user = result.rows[0];
+            
             conn.release();
             
             return user;
@@ -117,5 +119,3 @@ export class usersStore{
 
     }
 }
-
-

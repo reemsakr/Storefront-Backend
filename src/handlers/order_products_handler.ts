@@ -1,9 +1,9 @@
 import express, { NextFunction, Request, Response } from 'express'
-import { product, productsStore } from '../models/product_model'
+import { order_product, order_productsStore } from '../models/order_products_model'
 //import jwt from 'jsonwebtoken';
 // import db from '../database';
 
-const store = new productsStore()
+const store = new order_productsStore()
 
 // handler functions here
 export const index= async (_req:Request,res:Response)=> {
@@ -20,12 +20,15 @@ export const show= async (req:Request,res:Response)=> {
 
 export const create= async (req:Request,res:Response)=> {
     try{
-    const product:product={
+    const product:order_product={
         id: req.body.id,
-        name:req.body.name,
+        order_id:req.body.order_id,
+        product_id:req.body.product_id,
+        quantity:req.body.quantity,
         price:req.body.price
     }
-    const newproduct= await store.create(product);
+    
+    const newproduct= await store.create(req.body);
     res.json(newproduct);
     }
     catch(err){
@@ -40,9 +43,11 @@ export const destroy= async (_req:Request,res:Response)=> {
     };
     export const update= async (req:Request,res:Response)=> {
         
-        const product:product={
-            id:parseInt(req.params.id),
-            name:req.body.name,
+        const product:order_product={
+            id: parseInt(req.params.id),
+            order_id:req.body.order_id,
+            product_id:req.body.product_id,
+            quantity:req.body.quantity,
             price:req.body.price
         }
         

@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.destroy = exports.authentication = exports.create = exports.show = exports.index = void 0;
+exports.update = exports.destroy = exports.authentication = exports.create = exports.show = exports.index = void 0;
 const user_model_1 = require("../models/user_model");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const store = new user_model_1.usersStore();
@@ -64,11 +64,15 @@ const destroy = async (_req, res) => {
     res.json(newuser);
 };
 exports.destroy = destroy;
-// const usersRoutes = (app: express.Application) => {
-//   // Express routes here
-//     app.get('/users',index),
-//     // app.get('/book/:id',show),
-//     app.post('/users',create)
-//     // app.delete('/book/:id',destroy)
-// };
-// export default usersRoutes;
+const update = async (req, res) => {
+    const user = {
+        id: parseInt(req.params.id),
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        password_digest: req.body.password_digest,
+        username: req.body.username
+    };
+    const newuser = await store.update(user);
+    res.json(newuser);
+};
+exports.update = update;

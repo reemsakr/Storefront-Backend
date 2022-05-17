@@ -34,5 +34,6 @@ routes.post('/', authenticationmiddleware_1.default, handlers.create);
 routes.get('/', authenticationmiddleware_1.default, handlers.index);
 routes.get('/:id', authenticationmiddleware_1.default, handlers.show);
 routes.delete('/:id', authenticationmiddleware_1.default, handlers.destroy);
+routes.put('/:id', authenticationmiddleware_1.default, handlers.update);
 routes.route('/authentication').post(handlers.authentication);
 exports.default = routes;

@@ -1,5 +1,6 @@
 import express, { NextFunction, Request, Response } from 'express'
 import { user, usersStore } from '../models/user_model'
+
 import jwt from 'jsonwebtoken';
 import db from '../database';
 
@@ -75,17 +76,18 @@ const newuser= await store.delete(_req.params.id);
 
 
 export const update= async (req:Request,res:Response)=> {
-    const newuser= await store.update(req.params.id,req.body.firstName);
+    
+    const user:user={
+        id:parseInt(req.params.id),
+        firstName:req.body.firstName,
+        lastName:req.body.lastName,
+        password_digest:req.body.password_digest,
+        username:req.body.username
+    }
+    
+
+    const newuser= await store.update(user);
         res.json(newuser);
     };
-// const usersRoutes = (app: express.Application) => {
-//   // Express routes here
-//     app.get('/users',index),
-//     // app.get('/book/:id',show),
-//     app.post('/users',create)
-//     // app.delete('/book/:id',destroy)
-// };
-
-// export default usersRoutes;
 
 

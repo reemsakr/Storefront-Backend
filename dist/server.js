@@ -18,28 +18,4 @@ app.get('/', function (req, res) {
 app.listen(3000, function () {
     console.log(`starting app on: ${address}`);
 });
-// import  express,{Request,Response} from "express";
-// import bodyParser from 'body-parser';
-// import routes from './routes/index';
-// import morggan from 'morgan';
-// import errorMiddlewarwe from "./middleware/error.middleware";
-// import dashboardRoutes from './handler/;
-// const app:express.Application=express();
-// const address:string="0.0.0.4000";
-// app.use(morggan('dev'));
-// app.use(bodyParser.json());
-// app.use('/api',routes);
-// app.use('/ser',dashboardRoutes);
-// app.get('/',function(reg:Request,res:Response){
-//     throw new Error('Error exist');
-//     res.send('Hello World');
-// });
-// app.use((_req:Request,res:Response)=>{
-// res.status(400).json({
-//     message :"ooh you are lost !"
-// });
-// });
-// app.use(errorMiddlewarwe);
-// app.listen(4000,function(){
-//     console.log(`starting app on port :${address}`);
-// });
+exports.default = app;
