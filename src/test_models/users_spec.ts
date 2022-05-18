@@ -1,11 +1,15 @@
 
-import {user} from "../user_model";
-import db from '../../database';
-import {usersStore} from '../user_model'
+import {user} from "../models/user_model";
+import db from '../database';
+import {usersStore} from '../models/user_model';
+import{Request,Response}from 'express';
+import app from '../server';
+import supertest from 'supertest';
 
 
+const request = supertest(app);
 const users = new usersStore();
-describe('User Model', () => {
+describe('User Model',() => {
     describe('Test methods exist', () => {
         it('should have an index method', () => {
             expect(users.index).toBeDefined();
@@ -103,3 +107,10 @@ describe('User Model', () => {
         });
     });
 })
+
+
+// describe('to test endpoint response', () => {
+//     it('get the api endpoint', async () => {
+//     const response = await request.get('/api');
+//     expect(response.status).toBe(200);
+//     });});

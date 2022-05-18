@@ -1,7 +1,10 @@
-import {productsStore} from '../product_model';
-import {product} from '../product_model';
-import db from '../../database';
-
+import {productsStore} from '../models/product_model';
+import {product} from '../models/product_model';
+import db from '../database';
+import supertest from 'supertest';
+import app from '../server';
+import { Request,Response } from "express";
+const request = supertest(app);
 const products = new productsStore();
 
 describe('Product Model', () => {
@@ -78,3 +81,9 @@ describe('Product Model', () => {
         });
     });
 });
+
+// describe('to test endpoint response', () => {
+//     it('get the api endpoint', async () => {
+//     const response = await request.get('/api');
+//     expect(response.status).toBe(200);
+//     });});

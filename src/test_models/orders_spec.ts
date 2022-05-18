@@ -1,11 +1,15 @@
-import db from '../../database';
-import {user} from '../user_model';
-import {product} from '../product_model';
-import{ order} from '../order_model';
-import {ordersStore} from '../order_model';
-import {usersStore} from '../user_model';
-import {productsStore} from '../product_model';
+import db from '../database';
+import {user} from '../models/user_model';
+import {product} from '../models/product_model';
+import{ order} from '../models/order_model';
+import {ordersStore} from '../models/order_model';
+import {usersStore} from '../models/user_model';
+import {productsStore} from '../models/product_model';
 
+import { Request ,Response} from "express";
+import supertest from 'supertest';
+import app from '../server';
+const request = supertest(app);
 const userModel = new usersStore();
 const productModel = new productsStore();
 const orderModel = new ordersStore();
@@ -87,3 +91,9 @@ describe('Order Model', () => {
         });
     });
 });
+
+// describe('to test endpoint response', () => {
+//     it('get the api endpoint', async () => {
+//     const response = await request.get('/api');
+//     expect(response.status).toBe(200);
+//     });});
