@@ -4,31 +4,32 @@ import app from '../server';
 import {usersStore} from '../models/user_model';
 import {user} from '../models/user_model';
 
-import { Request ,Response} from "express";
-
 const userModel = new usersStore();
 const request = supertest(app);
 let token: string = '';
 
-describe('Products API Endpoints', () => {
+describe('Orders API Endpoints', () => {
     beforeAll(async () => {
         const user = {
             firstName: 'Test',
             lastName: 'User',
             password_digest: 'test123',
             username: 'testUser'
+        
         } as user;
 
         await userModel.create(user);
     });
+
     afterAll(async () => {
         // clean db
         const connection = await db.connect();
         const sql =
-            'DELETE FROM users;\nALTER SEQUENCE users_id_seq RESTART WITH 1;\nDELETE FROM products;\nALTER SEQUENCE products_id_seq RESTART WITH 1';
+            'DELETE FROM users;\nALTER SEQUENCE users_id_seq RESTART WITH 1;\nDELETE FROM orders;\nALTER SEQUENCE orders_id_seq RESTART WITH 1';
         await connection.query(sql);
         connection.release();
     });
+
     describe('Test Authenticate method', () => {
         it('should be able to authenticate to get token', async () => {
             const res = await request
@@ -49,73 +50,86 @@ describe('Products API Endpoints', () => {
     // describe('Test CRUD API methods', () => {
     //     it('should create new product', async () => {
     //         const res = await request
-    //             .post('/api/products/')
+    //             .post('/api/orders/')
     //             .set('Content-type', 'application/json')
     //             .set('Authorization', `Bearer ${token}`)
     //             .send({
-    //                 name: 'product name',
-    //                 price: 9.99
+    //                 product_id:1,
+    //                 quantity:2,
+    //                 user_id: 1,
+    //                 status: 'active'
     //             });
     //         expect(res.status).toBe(200);
-    //         const { id, name, price } = res.body.data;
+    //         const { id, status, user_id } = res.body.data;
     //         expect(id).toBe(1);
-    //         expect(name).toBe('product name');
-            
-    //         expect(price).toBe(9.99);
+    //         expect(status).toBe('active');
+    //         expect(user_id).toBe(1);
     //     });
 
-    //     it('should get list of products', async () => {
+    //     it('should get list of orders', async () => {
     //         const res = await request
-    //             .get('/api/products/')
+    //             .get('/api/orders/')
     //             .set('Content-type', 'application/json')
     //             .set('Authorization', `Bearer ${token}`);
     //         expect(res.status).toBe(200);
-    //         expect(res.body.data.products.length).toBe(1);
+    //         expect(res.body.data.orders.length).toBe(1);
+    //         expect(res.body.data.orders[0].status).toBe('active');
+    //         expect(res.body.data.orders[0].user_id).toBe(1);
+    //         expect(res.body.data.orders[0].username).toBe('testUser');
     //     });
 
-    //     it('should get product info', async () => {
+    //     it('should get order info', async () => {
     //         const res = await request
-    //             .get('/api/products/1')
+    //             .get('/api/orders/1')
     //             .set('Content-type', 'application/json')
     //             .set('Authorization', `Bearer ${token}`);
     //         expect(res.status).toBe(200);
-    //         expect(res.body.data.product.id).toBe(1);
+    //         expect(res.body.data.order.id).toBe(1);
+    //         expect(res.body.data.order.status).toBe('active');
+    //         expect(res.body.data.order.user_id).toBe(1);
+    //         expect(res.body.data.order.username).toBe('testUser');
     //     });
 
-    //     it('should update product info', async () => {
+    //     it('should get order info for current user', async () => {
     //         const res = await request
-    //             .patch('/api/products/1')
+    //             .get('/api/orders/users/1')
+    //             .set('Content-type', 'application/json')
+    //             .set('Authorization', `Bearer ${token}`);
+    //         expect(res.status).toBe(200);
+    //         expect(res.body.data.order.id).toBe(1);
+    //         expect(res.body.data.order.status).toBe('active');
+    //         expect(res.body.data.order.user_id).toBe(1);
+    //         expect(res.body.data.order.username).toBe('testUser');
+    //     });
+
+    //     it('should update order info', async () => {
+    //         const res = await request
+    //             .patch('/api/orders/1')
     //             .set('Content-type', 'application/json')
     //             .set('Authorization', `Bearer ${token}`)
     //             .send({
     //                 id: 1,
-    //                 name: 'product name',
-                    
-    //                 price: 20
+    //                 product_id:1,
+    //                 quantity:2,
+    //                 user_id: 1,
+    //                 status: 'active'
     //             });
 
-    //         const { id, name,  price } = res.body.data.product;
+    //         const { id, status, userId } = res.body.data.order;
 
     //         expect(res.status).toBe(200);
     //         expect(id).toBe(1);
-    //         expect(name).toBe('product name');
-    //         expect(price).toBe(20);
-            
+    //         expect(status).toBe('active');
+    //         expect(userId).toBe(1);
     //     });
 
-    //     it('should delete product', async () => {
+    //     it('should delete order', async () => {
     //         const res = await request
-    //             .delete('/api/products/1')
+    //             .delete('/api/orders/1')
     //             .set('Content-type', 'application/json')
     //             .set('Authorization', `Bearer ${token}`);
     //         expect(res.status).toBe(200);
-    //         expect(res.body.data.product.id).toBe(1);
+    //         expect(res.body.data.order.id).toBe(1);
     //     });
     // });
 });
-// console.log("here");
-// describe('to test endpoint response', () => {
-//     it('get the api endpoint', async () => {
-//     const response = await request.get('/api');
-//     expect(response.status).toBe(200);
-//     });});

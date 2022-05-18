@@ -61,7 +61,7 @@ Next, start the Postgres server:
 npm run start
 ```
 
-Now, check if Postgres has the database `store`, if not create it:
+Now, check if Postgres has the database `database_dev`, if not create it:
 
 ```bash
 
