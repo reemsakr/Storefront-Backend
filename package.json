@@ -7,7 +7,9 @@
     "start": "nodemon src/server.ts",
     "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess \"node ./dist/server.js\"",
     "test": "set ENV=test&&db-migrate --env test up&&tsc&&jasmine&&db-migrate --env test reset",
-    "tsc": "tsc"
+    "tsc": "tsc",
+    "lint": "eslint . --ext .ts",
+    "prettier": "prettier --config .prettierrc.json --write \"src/**/*.ts\" "
   },
   "author": "Udacity",
   "license": "ISC",
