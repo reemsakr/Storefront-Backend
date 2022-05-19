@@ -92,8 +92,3 @@ describe('Order Model', () => {
     });
 });
 
-// describe('to test endpoint response', () => {
-//     it('get the api endpoint', async () => {
-//     const response = await request.get('/api');
-//     expect(response.status).toBe(200);
-//     });});

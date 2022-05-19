@@ -47,64 +47,24 @@ describe('User Model',() => {
             connection.release();
         });
 
-        // it('Create method should return a User', async () => {
-        //     const createdUser = await users.create(user);
-        //     expect(createdUser).toEqual({
-        //         id: createdUser.id,
-        //     firstName: 'Test',
-        //     lastName: 'User',
-        //     username: 'testUser'
-        //     } as user);
-        // });
-
-        // it('Index method should return All available users in DB', async () => {
-        //     const user = await users.index();
-        //     expect(user.length).toBe(1);
-        //     expect(user[0].username).toBe('testUser');
-        // });
-
-        // it('Show method should return testUser when called with ID (1)', async () => {
-        //     const returnedUser = await users.show("1");
-        //     expect(returnedUser.id).toBe(1);
-        //     expect(returnedUser.firstName).toBe('Test');
-        //     expect(returnedUser.lastName).toBe('User');
-        //     expect(returnedUser.username).toBe('testUser');
-        // });
-
-        // it('Edit method should return a user with edited attributes', async () => {
-        //     const updatedUser = await users.update({
-        //         id: 1,
-        //     firstName: 'Reem',
-        //         lastName: 'Sakr',
-        //         password_digest: 'test123',
-        //         username: 'Reem.sakr'
-                
-        //     });
-        //     expect(updatedUser.firstName).toBe('Reeem');
-        //     expect(updatedUser.lastName).toBe('sakr')
-        //     expect(updatedUser.username).toBe('Reem.sakr');
-            
-        // });
+    
 
         it('Authenticate method should return the authenticated user', async () => {
-            const authenticatedUser = await users.authentication('mohammedelzanaty', 'test123');
+            const authenticatedUser = await users.authentication('Test', 'test123');
             if (authenticatedUser) {
-            expect(authenticatedUser.firstName).toBe('Reeem');
-                expect(authenticatedUser.lastName).toBe('sakr');
-                expect(authenticatedUser.username).toBe('Reeem.sakr');
+            expect(authenticatedUser.firstName).toBe('Test');
+                expect(authenticatedUser.lastName).toBe('User');
+                expect(authenticatedUser.username).toBe('TestUser');
             
             }
         });
 
         it('Authenticate method should return null for wrong credentials', async () => {
-            const authenticatedUser = await users.authentication('Reem.sakr', 'fakeuser');
+            const authenticatedUser = await users.authentication('Test', 'test123');
             expect(authenticatedUser).toBe(null);
         });
 
-        // it('Delete method should delete user from DB', async () => {
-        //     const deletedUser = await users.delete("1");
-        //     expect(deletedUser.id).toBe(1);
-        // });
+    
     });
 });
 
