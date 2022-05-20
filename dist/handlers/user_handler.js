@@ -25,7 +25,7 @@ const create = async (req, res) => {
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             password_digest: req.body.password_digest,
-            username: req.body.username
+            username: req.body.username,
         };
         const newuser = await store.create(req.body);
         res.json(newuser);
@@ -45,13 +45,13 @@ const authentication = async (req, res, next) => {
         if (!user) {
             return res.status(401).json({
                 status: 'error',
-                message: 'the username and passowrd does not match , please try again'
+                message: 'the username and passowrd does not match , please try again',
             });
         }
         return res.json({
             status: 'success',
             data: { ...user, token },
-            message: 'user authenticated successfuly'
+            message: 'user authenticated successfuly',
         });
     }
     catch (err) {
@@ -70,7 +70,7 @@ const update = async (req, res) => {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         password_digest: req.body.password_digest,
-        username: req.body.username
+        username: req.body.username,
     };
     const newuser = await store.update(user);
     res.json(newuser);

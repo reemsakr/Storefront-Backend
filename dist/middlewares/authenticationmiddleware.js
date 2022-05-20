@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const handleUnauthorizedError = (res) => {
     return res.status(401).json({
-        message: 'login failed:please try again'
+        message: 'login failed:please try again',
     });
 };
 const validateTokenMiddleware = (req, res, next) => {

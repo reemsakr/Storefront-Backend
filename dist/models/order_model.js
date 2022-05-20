@@ -23,7 +23,12 @@ class ordersStore {
         try {
             const conn = await database_1.default.connect();
             const sql = 'INSERT INTO orders (product_id,quantity,user_id,status)VALUES ($1,$2,$3,$4) RETURNING *';
-            const result = await conn.query(sql, [o.product_id, o.quantity, o.user_id, o.status]);
+            const result = await conn.query(sql, [
+                o.product_id,
+                o.quantity,
+                o.user_id,
+                o.status,
+            ]);
             conn.release();
             const product = result.rows[0];
             return product;
@@ -73,7 +78,13 @@ class ordersStore {
         try {
             const conn = await database_1.default.connect();
             const sql = 'UPDATE orders SET product_id=($2),quantity=($3),user_id=($4),status=($5) WHERE id=($1) RETURNING *';
-            const result = (await conn.query(sql, [o.id, o.product_id, o.quantity, o.user_id, o.status]));
+            const result = await conn.query(sql, [
+                o.id,
+                o.product_id,
+                o.quantity,
+                o.user_id,
+                o.status,
+            ]);
             const order = result.rows[0];
             conn.release();
             return order;

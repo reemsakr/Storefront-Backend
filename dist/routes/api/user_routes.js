@@ -30,7 +30,7 @@ const express_1 = require("express");
 const handlers = __importStar(require("../../handlers/user_handler"));
 const authenticationmiddleware_1 = __importDefault(require("../../middlewares/authenticationmiddleware"));
 const routes = (0, express_1.Router)();
-routes.post('/', authenticationmiddleware_1.default, handlers.create);
+routes.post('/', handlers.create);
 routes.get('/', authenticationmiddleware_1.default, handlers.index);
 routes.get('/:id', authenticationmiddleware_1.default, handlers.show);
 routes.delete('/:id', authenticationmiddleware_1.default, handlers.destroy);

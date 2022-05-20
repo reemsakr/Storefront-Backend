@@ -27,7 +27,12 @@ class usersStore {
             const conn = await database_1.default.connect();
             const sql = 'INSERT INTO users(firstName,lastName,password_digest,username) VALUES($1,$2,$3,$4) RETURNING *';
             const hash = bcrypt_1.default.hashSync(u.password_digest + pepper, parseInt(salt_rounds));
-            const result = await conn.query(sql, [u.firstName, u.lastName, hash, u.username]);
+            const result = await conn.query(sql, [
+                u.firstName,
+                u.lastName,
+                hash,
+                u.username,
+            ]);
             const users = result.rows[0];
             conn.release();
             return users;
@@ -84,7 +89,13 @@ class usersStore {
         try {
             const conn = await database_1.default.connect();
             const sql = 'UPDATE users SET firstName=($2) ,lastName=($3),password_digest=($4),username=($5) WHERE id=($1) RETURNING *';
-            const result = await conn.query(sql, [u.id, u.firstName, u.lastName, u.password_digest, u.username]);
+            const result = await conn.query(sql, [
+                u.id,
+                u.firstName,
+                u.lastName,
+                u.password_digest,
+                u.username,
+            ]);
             const user = result.rows[0];
             conn.release();
             return user;

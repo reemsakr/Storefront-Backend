@@ -33,7 +33,7 @@ const create = async (req, res) => {
             product_id: req.body.product_id,
             quantity: req.body.quantity,
             user_id: req.body.user_id,
-            status: req.body.status
+            status: req.body.status,
         };
         const neworder = await store.create(order);
         res.json(neworder);
@@ -50,7 +50,7 @@ const update = async (req, res) => {
         product_id: req.body.product_id,
         quantity: req.body.quantity,
         user_id: req.body.user_id,
-        status: req.body.status
+        status: req.body.status,
     };
     const neworder = await store.update(order);
     res.json(neworder);

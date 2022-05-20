@@ -21,7 +21,7 @@ const create = async (req, res) => {
         const product = {
             id: req.body.id,
             name: req.body.name,
-            price: req.body.price
+            price: req.body.price,
         };
         const newproduct = await store.create(product);
         res.json(newproduct);
@@ -41,7 +41,7 @@ const update = async (req, res) => {
     const product = {
         id: parseInt(req.params.id),
         name: req.body.name,
-        price: req.body.price
+        price: req.body.price,
     };
     const newproduct = await store.update(product);
     res.json(newproduct);
