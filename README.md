@@ -60,16 +60,8 @@ Now, create the database
 ```bash
 
 
-# Postgres shell
-create database  database_dev; 
-create database  test;
 
-```
-Next, start the Postgres server:
 
-```bash
-npm run start
-```
 
 Now, check if Postgres has the database `database_dev`, if not create it:
 
@@ -77,6 +69,11 @@ Now, check if Postgres has the database `database_dev`, if not create it:
 
 
 # Postgres shell
+create database  database_dev; 
+create database  test;
+
+```
+
 # This will list out all the databases
 \l
 # If "database_dev" database is not present
