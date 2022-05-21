@@ -54,7 +54,17 @@ SALT_ROUNDS=10
 TOKEN_SECRET=secret
 
 ```
+Now, create the database
 
+
+```bash
+
+
+# Postgres shell
+create database  database_dev; 
+create database  test;
+
+```
 Next, start the Postgres server:
 
 ```bash
