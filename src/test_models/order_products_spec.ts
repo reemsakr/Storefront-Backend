@@ -36,4 +36,64 @@ describe('Order Product Model', () => {
       expect(orderProductModel.delete).toBeDefined();
     });
   });
+  describe('Test Order Products Model logic', () => {
+    const user = {
+      firstName: 'Test',
+      lastName: 'User',
+      password_digest: 'test123',
+      username: 'testUser',
+    } as user;
+
+
+    const product = {
+    
+          name: 'product name',
+          price: 20
+    } as product;
+
+    const order = {
+      id: 1,
+      user_id: 1,
+      status: 'active'
+    } as order;
+
+    const orderProduct = {
+      order_id: 1,
+      product_id: 1,
+      quantity: 1,
+      price: 20,
+    } as order_product;
+
+    beforeAll(async () => {
+      // setup user/product to test with
+      await userModel.create(user);
+      await productModel.create(product);
+      await orderModel.create(order);
+    });
+
+    afterAll(async () => {
+      const connection = await db.connect();
+      const sql =
+        'DELETE FROM order_products;\nALTER SEQUENCE order_products_id_seq RESTART WITH 1;\nDELETE FROM orders;\nALTER SEQUENCE orders_id_seq RESTART WITH 1;\nDELETE FROM products;\nALTER SEQUENCE products_id_seq RESTART WITH 1;\nDELETE FROM users;\nALTER SEQUENCE users_id_seq RESTART WITH 1';
+      await connection.query(sql);
+      connection.release();
+    });
+
+    it('Create method should return an order product', async () => {
+      const createdOrderProduct = await orderProductModel.create(orderProduct);
+      expect(createdOrderProduct.quantity).toBe(1);
+    });
+
+    it('Index method should return a list of products in a specific order', async () => {
+      const orderProducts = await orderProductModel.index();
+      expect(orderProducts[0].id).toBe(1);
+    });
+
+    
+
+    
+
+  
+    
+  });
 });

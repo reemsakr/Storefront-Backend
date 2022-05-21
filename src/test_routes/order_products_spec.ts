@@ -73,4 +73,62 @@ describe('Order Product API Endpoints', () => {
       token = userToken;
     });
   });
+  describe('Test CRUD API methods', () => {
+    it('should create new order product', async () => {
+      const res = await request
+        .post('/api/order_products/')
+        .set('Content-type', 'application/json')
+        .set('Authorization', `Bearer ${token}`)
+        .send(orderProduct);
+      expect(res.status).toBe(200);
+      
+    });
+
+    it('should get list of order products', async () => {
+      const res = await request
+        .get('/api/order_products/')
+        .set('Content-type', 'application/json')
+        .set('Authorization', `Bearer ${token}`);
+      expect(res.status).toBe(200);
+      
+    });
+
+    it('should get order product info', async () => {
+      const res = await request
+        .get('/api/order_products/1')
+        .set('Content-type', 'application/json')
+        .set('Authorization', `Bearer ${token}`);
+      expect(res.status).toBe(200);
+    });
+
+    it('should update order product info', async () => {
+      const res = await request
+        .get('/api/order_products/1/')
+        .set('Content-type', 'application/json')
+        .set('Authorization', `Bearer ${token}`)
+        .send({
+          order_id: 1,
+          product_id: 1,
+          quantity: 2,
+          price: 20,
+        });
+      
+
+      expect(res.status).toBe(200);
+    
+    });
+
+    it('should delete order', async () => {
+      const res = await request
+        .delete('/api/order_products/1')
+        .set('Content-type', 'application/json')
+        .set('Authorization', `Bearer ${token}`)
+        .send({
+          product_id: 1,
+          order_id: 1
+        });
+      expect(res.status).toBe(200);
+      
+    });
+  });
 });

@@ -8,14 +8,27 @@ const store = new usersStore();
 
 // handler functions here
 export const index = async (_req: Request, res: Response) => {
+  try{
   const user = await store.index();
   res.json(user);
+  }
+  catch (err) {
+    res.status(400);
+    res.json(err);
+  }
 };
 
 export const show = async (req: Request, res: Response) => {
-  const user = await store.show(req.params.id);
+  try{
+    const user = await store.show(req.params.id);
 
   res.json(user);
+  }
+  catch (err) {
+    res.status(400);
+    res.json(err);
+  }
+  
 };
 
 export const create = async (req: Request, res: Response) => {
@@ -67,12 +80,20 @@ export const authentication = async (
 };
 
 export const destroy = async (_req: Request, res: Response) => {
-  const newuser = await store.delete(_req.params.id);
+  try{
+    const newuser = await store.delete(_req.params.id);
   res.json(newuser);
+  }
+  catch (err) {
+    res.status(400);
+    res.json(err);
+  }
 };
 
 export const update = async (req: Request, res: Response) => {
-  const user: user = {
+  
+  try{
+    const user: user = {
     id: parseInt(req.params.id),
     firstName: req.body.firstName,
     lastName: req.body.lastName,
@@ -82,4 +103,9 @@ export const update = async (req: Request, res: Response) => {
 
   const newuser = await store.update(user);
   res.json(newuser);
+  }
+  catch (err) {
+    res.status(400);
+    res.json(err);
+  }
 };

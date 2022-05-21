@@ -45,4 +45,71 @@ describe('Orders API Endpoints', () => {
       token = userToken;
     });
   });
+  describe('Test CRUD API methods', () => {
+    it('should create new product', async () => {
+      const res = await request
+        .post('/api/orders/')
+        .set('Content-type', 'application/json')
+        .set('Authorization', `Bearer ${token}`)
+        .send({
+          user_id: 1,
+          status: 'active'
+        });
+      expect(res.status).toBe(200);
+      
+    });
+
+    it('should get list of orders', async () => {
+      const res = await request
+        .get('/api/orders/')
+        .set('Content-type', 'application/json')
+        .set('Authorization', `Bearer ${token}`);
+      expect(res.status).toBe(200);
+      
+    });
+
+    it('should get order info', async () => {
+      const res = await request
+        .get('/api/orders/1')
+        .set('Content-type', 'application/json')
+        .set('Authorization', `Bearer ${token}`);
+      expect(res.status).toBe(200);
+    
+    });
+
+    it('should get order info for current user', async () => {
+      const res = await request
+        .get('/api/orders/users/1')
+        .set('Content-type', 'application/json')
+        .set('Authorization', `Bearer ${token}`);
+      expect(res.status).toBe(200);
+    
+    });
+
+    it('should update order info', async () => {
+      const res = await request
+        .patch('/api/orders/1')
+        .set('Content-type', 'application/json')
+        .set('Authorization', `Bearer ${token}`)
+        .send({
+          id: 1,
+          user_id: 1,
+          status: 'active'
+        });
+
+      
+
+      expect(res.status).toBe(404);
+    
+    });
+
+    it('should delete order', async () => {
+      const res = await request
+        .delete('/api/orders/1')
+        .set('Content-type', 'application/json')
+        .set('Authorization', `Bearer ${token}`);
+      expect(res.status).toBe(200);
+    
+    });
+  });
 });

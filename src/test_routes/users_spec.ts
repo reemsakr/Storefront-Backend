@@ -45,4 +45,67 @@ describe('User API Endpoints', () => {
       token = userToken;
     });
   });
+  describe('Test CRUD API methods', () => {
+    it('should create new user', async () => {
+      const res = await request
+        .post('/api/users/')
+        .set('Content-type', 'application/json')
+        .set('Authorization', `Bearer ${token}`)
+        .send({
+        firstName: 'Test2',
+          lastName: 'User2',
+          password_digest: 'test123',
+          username: 'testUser2'
+        });
+      expect(res.status).toBe(200);
+      
+    });
+
+    it('should delete user', async () => {
+      const res = await request
+        .delete('/api/users/2')
+        .set('Content-type', 'application/json')
+        .set('Authorization', `Bearer ${token}`);
+      expect(res.status).toBe(200);
+      
+    });
+
+    it('should get list of users', async () => {
+      const res = await request
+        .get('/api/users/')
+        .set('Content-type', 'application/json')
+        .set('Authorization', `Bearer ${token}`);
+      expect(res.status).toBe(200);
+    
+    });
+
+    it('should get user info', async () => {
+      const res = await request
+        .get('/api/users/1')
+        .set('Content-type', 'application/json')
+        .set('Authorization', `Bearer ${token}`);
+      expect(res.status).toBe(200);
+    
+      
+    });
+
+    it('should update user info', async () => {
+      const res = await request
+        .patch('/api/users/1')
+        .set('Content-type', 'application/json')
+        .set('Authorization', `Bearer ${token}`)
+        .send({
+          id: 1,
+          firstName: 'Reem',
+          lastName: 'Sakr',
+          password_digest:'test123',
+          username: 'Reem.Sakr',
+          
+          
+        });
+      expect(res.status).toBe(404);
+
+    
+    });
+  });
 });

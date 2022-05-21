@@ -9,13 +9,25 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const store = new user_model_1.usersStore();
 // handler functions here
 const index = async (_req, res) => {
-    const user = await store.index();
-    res.json(user);
+    try {
+        const user = await store.index();
+        res.json(user);
+    }
+    catch (err) {
+        res.status(400);
+        res.json(err);
+    }
 };
 exports.index = index;
 const show = async (req, res) => {
-    const user = await store.show(req.params.id);
-    res.json(user);
+    try {
+        const user = await store.show(req.params.id);
+        res.json(user);
+    }
+    catch (err) {
+        res.status(400);
+        res.json(err);
+    }
 };
 exports.show = show;
 const create = async (req, res) => {
@@ -60,19 +72,31 @@ const authentication = async (req, res, next) => {
 };
 exports.authentication = authentication;
 const destroy = async (_req, res) => {
-    const newuser = await store.delete(_req.params.id);
-    res.json(newuser);
+    try {
+        const newuser = await store.delete(_req.params.id);
+        res.json(newuser);
+    }
+    catch (err) {
+        res.status(400);
+        res.json(err);
+    }
 };
 exports.destroy = destroy;
 const update = async (req, res) => {
-    const user = {
-        id: parseInt(req.params.id),
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        password_digest: req.body.password_digest,
-        username: req.body.username,
-    };
-    const newuser = await store.update(user);
-    res.json(newuser);
+    try {
+        const user = {
+            id: parseInt(req.params.id),
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            password_digest: req.body.password_digest,
+            username: req.body.username,
+        };
+        const newuser = await store.update(user);
+        res.json(newuser);
+    }
+    catch (err) {
+        res.status(400);
+        res.json(err);
+    }
 };
 exports.update = update;

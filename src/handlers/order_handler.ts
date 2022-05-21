@@ -7,24 +7,47 @@ const store = new ordersStore();
 
 // handler functions here
 export const index = async (_req: Request, res: Response) => {
-  const order = await store.index();
+  try{
+    const order = await store.index();
   res.json(order);
+  }
+  catch (err) {
+    res.status(400);
+    res.json(err);
+  }
 };
 
 export const show = async (req: Request, res: Response) => {
-  const order = await store.show(req.params.id);
-
+  try{
+    const order = await store.show(req.params.id);
   res.json(order);
+  }
+  catch (err) {
+    res.status(400);
+    res.json(err);
+  }
 };
 
 export const getOrderByUserId = async (req: Request, res: Response) => {
-  const order = await store.getOrderByUserId(req.params.user_id);
+  try{
+const order = await store.getOrderByUserId(req.params.user_id);
   res.json(order);
+  }
+  catch (err) {
+    res.status(400);
+    res.json(err);
+  }
 };
 
 export const destroy = async (_req: Request, res: Response) => {
-  const neworder = await store.delete(_req.params.id);
+  try{
+    const neworder = await store.delete(_req.params.id);
   res.json(neworder);
+  }
+  catch (err) {
+    res.status(400);
+    res.json(err);
+  }
 };
 
 export const create = async (req: Request, res: Response) => {
@@ -44,7 +67,8 @@ export const create = async (req: Request, res: Response) => {
   }
 };
 export const update = async (req: Request, res: Response) => {
-  const order: order = {
+  try{
+    const order: order = {
     id: parseInt(req.params.id),
     product_id: req.body.product_id,
     quantity: req.body.quantity,
@@ -54,4 +78,9 @@ export const update = async (req: Request, res: Response) => {
 
   const neworder = await store.update(order);
   res.json(neworder);
+  }
+  catch (err) {
+    res.status(400);
+    res.json(err);
+  }
 };

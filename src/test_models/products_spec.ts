@@ -25,4 +25,28 @@ describe('Product Model', () => {
       expect(products.delete).toBeDefined();
     });
   });
+  describe('Test Model logic', () => {
+    const product = {
+      name: 'product name',
+      price: 9.99
+    } as product;
+
+    afterAll(async () => {
+      const connection = await db.connect();
+      const sql = 'DELETE FROM products;\n ALTER SEQUENCE products_id_seq RESTART WITH 1;\n';
+      await connection.query(sql);
+      connection.release();
+    });
+
+    it('Index method should return a list of products', async () => {
+      const product= await products.index();
+      expect(product.length).toBe(0);
+      
+    });
+
+    
+
+    
+    
+  });
 });

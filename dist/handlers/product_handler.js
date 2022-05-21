@@ -7,13 +7,25 @@ const product_model_1 = require("../models/product_model");
 const store = new product_model_1.productsStore();
 // handler functions here
 const index = async (_req, res) => {
-    const product = await store.index();
-    res.json(product);
+    try {
+        const product = await store.index();
+        res.json(product);
+    }
+    catch (err) {
+        res.status(400);
+        res.json(err);
+    }
 };
 exports.index = index;
 const show = async (req, res) => {
-    const product = await store.show(req.params.id);
-    res.json(product);
+    try {
+        const product = await store.show(req.params.id);
+        res.json(product);
+    }
+    catch (err) {
+        res.status(400);
+        res.json(err);
+    }
 };
 exports.show = show;
 const create = async (req, res) => {
@@ -33,17 +45,29 @@ const create = async (req, res) => {
 };
 exports.create = create;
 const destroy = async (_req, res) => {
-    const newuproduct = await store.delete(_req.params.id);
-    res.json(newuproduct);
+    try {
+        const newuproduct = await store.delete(_req.params.id);
+        res.json(newuproduct);
+    }
+    catch (err) {
+        res.status(400);
+        res.json(err);
+    }
 };
 exports.destroy = destroy;
 const update = async (req, res) => {
-    const product = {
-        id: parseInt(req.params.id),
-        name: req.body.name,
-        price: req.body.price,
-    };
-    const newproduct = await store.update(product);
-    res.json(newproduct);
+    try {
+        const product = {
+            id: parseInt(req.params.id),
+            name: req.body.name,
+            price: req.body.price,
+        };
+        const newproduct = await store.update(product);
+        res.json(newproduct);
+    }
+    catch (err) {
+        res.status(400);
+        res.json(err);
+    }
 };
 exports.update = update;
